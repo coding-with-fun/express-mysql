@@ -4,7 +4,7 @@ const express = require("express");
 const Router = express.Router();
 
 Router.get("/", (req, res) => {
-  mySqlConnection.query("SELECT * from people", (err, rows, fields) => {
+  mySqlConnection.query("SELECT * from people", (err, rows) => {
     if (!err) {
       res.json({
         data: rows,
@@ -18,7 +18,7 @@ Router.get("/", (req, res) => {
 Router.post("/", (req, res) => {
   const name = req.body.name;
   const query = `INSERT INTO \`people\`(\`name\`) VALUES ("${name}")`;
-  mySqlConnection.query(query, (err, rows, fields) => {
+  mySqlConnection.query(query, (err, rows) => {
     if (!err) {
       res.json({
         data: rows,
@@ -32,7 +32,7 @@ Router.post("/", (req, res) => {
 Router.delete("/", (req, res) => {
   const name = req.body.name;
   const query = `DELETE FROM \`people\` WHERE name = "${name}"`;
-  mySqlConnection.query(query, (err, rows, fields) => {
+  mySqlConnection.query(query, (err, rows) => {
     if (!err) {
       res.json({
         data: rows,
@@ -48,7 +48,7 @@ Router.put("/", (req, res) => {
   const oldName = req.body.oldName;
 
   const query = `UPDATE \`people\` SET \`name\` = "${newName}" WHERE \`name\` = "${oldName}"`;
-  mySqlConnection.query(query, (err, rows, fields) => {
+  mySqlConnection.query(query, (err, rows) => {
     if (!err) {
       res.json({
         data: rows,
